@@ -1,0 +1,27 @@
+
+<%- include('common/header') %>
+
+    <div class="jumbotron">
+        <h2>Welcome to FunQuiz!</h2>
+        <p>Test your knowledge with our fun quizzes. Enjoy learning and have a great time!</p>
+        <a class="btn btn-primary btn-lg" href="/questionpaper" role="button">Take A Test</a>
+        <a class="btn btn-primary btn-lg" href="/questionpaper" role="button">Create A Test</a>
+    </div>
+
+    <div class="container text-center">
+        <h3 class="categories-heading">Some Categories</h3>
+        <div class="row">
+            <% for (let i = 0; i < categories.length; i++) { %>
+            <div class="col-md-4">
+                <div class="card" onclick="window.location.href='<%= categories[i].link %>'">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= categories[i].name %></h5>
+                        <p class="card-text"><%= categories[i].quote %></p>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+        </div>
+    </div>
+
+    <%- include('common/footer') %>

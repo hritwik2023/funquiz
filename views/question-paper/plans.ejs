@@ -1,0 +1,61 @@
+<%- include('../common/header') %>
+<script>
+
+</script>
+<script>
+    // Your JavaScript code
+</script>
+<h2 id="heading">For what purpose are you creating this question paper?</h2>
+
+<div id="step2">
+    <form action="/step3" method="GET">
+        <% if (flag == "SE") { %>
+            <div id="topicCheck">
+                <label for="all">
+                    select all
+                </label>
+                <input type="checkbox" name="all" id="all" checked/>
+            </div>
+            
+            <% for (i in chapters) { %>
+                <div id="topicCheck">
+
+                <label for="checkedItem">
+                    <%= chapters[i].chapterName%>
+                </label>
+                <input type="checkbox" name="checkedItem" value="<%= chapters[i].chapterName.toLowerCase().replace(/ /g, '_')%>" checked/>
+            </div>
+                <% } %>
+            <input type="hidden" style="display: none;" name="type" value="SE" />
+            <button type="submit">Submit</button>
+        <% } %>
+        <% if (flag == "Q") { %>
+            <input type="hidden" style="display: none;" name="type" value="Q" />
+            <label for="type">Type</label>
+            <select name="type" id="type" required>
+                <option value="#" >Select type</option> 
+                <option value="oneWord" >One Word</option> 
+                <option value="objective" >Objective</option> 
+            </select>   
+            <label for="category">Category</label>
+            <select name="category" id="category" required>
+                <option value="#" >Select category</option> 
+                <% for(i in topics) { %>
+                    <option value="<%= topics[i].name%>" ><%= topics[i].name%></option>  
+                <% } %>
+            </select>  
+            <label for="difficult">Difficulty Level</label> 
+            <select name="difficult" id="type" required>
+                <option value="#" >Select difficulty</option> 
+                <option value="easy" >Easy</option> 
+                <option value="medium" >Medium</option> 
+                <option value="hard" >Hard</option> 
+            </select>           
+            <label for="totalQ">Total Questions</label>
+            <input type="number" name="totalQ" required />
+            <button type="submit">Submit</button>
+        <% } %>
+    </form>
+</div>
+
+<%- include('../common/footer') %>

@@ -1,0 +1,89 @@
+<%- include('../common/header') %>
+<script>
+    <% if (flag == "SE") { %>
+    function getSubjects() {
+        var selectedClass = document.getElementById("standard").value;
+        console.log(selectedClass)
+        var subjectDropdown = document.getElementById("subject");
+        var subjectDropdownLabel = document.getElementById("subjectLabel");
+        
+        subjectDropdown.style.display ="block";
+        subjectDropdownLabel.style.display ="block";
+
+        subjectDropdown.innerHTML = ""; // Clear previous options
+        if(selectedClass >10){
+            <% for (i in subjects) { %>
+            <% if (subjects[i].class == '12') { %>
+                var option = document.createElement("option");
+                option.value = "<%= subjects[i].subjectName %>";
+                option.text = "<%= subjects[i].subjectName %>";
+                subjectDropdown.appendChild(option);
+            <% } %>
+        <% } %>
+            }else{
+                <% for (i in subjects) { %>
+            <% if (subjects[i].class == 'All') { %>
+                var option = document.createElement("option");
+                option.value = "<%= subjects[i].subjectCode %>";
+                option.text = "<%= subjects[i].subjectName %>";
+                subjectDropdown.appendChild(option);
+            <% } %>
+        <% } %>
+            }
+        } 
+        <%}%>
+</script>
+<script>
+    // Your JavaScript code
+</script>
+<h2 id="heading">For what purpose are you creating this question paper?</h2>
+
+<div id="step2">
+    <form action="/showWeightage" method="GET">
+        <% if (flag == "SE") { %>
+            <input type="hidden" style="display: none;" name="type" value="SE" />
+            <label for="standard">Standard</label>
+            <select name="standard" id="standard" onchange="getSubjects();" required>
+                <option value="#" >Select a class</option> 
+                <% for (let i=12; i>0;i--) { %>
+                    <option value="<%=i%>"><%=i%>th Class</option>   
+                <% } %>
+            </select>  
+            <label for="subject" id="subjectLabel" style="display: none;">Subject</label>
+            <select name="subject" id="subject" style="display: none;" required>
+                <!-- Options will be populated dynamically by the script -->
+            </select>
+            <label for="totalmarks">Total Marks:</label>
+            <input type="number" name="totalmarks" required />
+            <button type="submit">Submit</button>
+        <% } %>
+        <% if (flag == "Q") { %>
+            <input type="hidden" style="display: none;" name="type" value="Q" />
+            <label for="type">Type</label>
+            <select name="type" id="type" required>
+                <option value="#" >Select type</option> 
+                <option value="oneWord" >One Word</option> 
+                <option value="objective" >Objective</option> 
+            </select>   
+            <label for="category">Category</label>
+            <select name="category" id="category" required>
+                <option value="#" >Select category</option> 
+                <% for(i in topics) { %>
+                    <option value="<%= topics[i].name%>" ><%= topics[i].name%></option>  
+                <% } %>
+            </select>  
+            <label for="difficult">Difficulty Level</label> 
+            <select name="difficult" id="difficult" required>
+                <option value="#" >Select difficulty</option> 
+                <option value="easy" >Easy</option> 
+                <option value="medium" >Medium</option> 
+                <option value="hard" >Hard</option> 
+            </select>           
+            <label for="totalQ">Total Questions</label>
+            <input type="number" name="totalQ" required />
+            <button type="submit">Submit</button>
+        <% } %>
+    </form>
+</div>
+
+<%- include('../common/footer') %>

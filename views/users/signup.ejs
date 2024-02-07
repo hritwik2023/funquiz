@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #password-message,
+        #confirm-password-message {
+            color: red;
+            margin-top: 5px;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.querySelector('form');
+            const passwordInput = document.getElementById('password');
+            const confirmPasswordInput = document.getElementById('confirm-password');
+            const passwordMessage = document.getElementById('password-message');
+            const confirmPasswordMessage = document.getElementById('confirm-password-message');
+            
+            form.addEventListener('submit', function (event) {
+                if (!isPasswordValid(passwordInput.value)) {
+                    passwordMessage.textContent = 'Password must contain at least one number, one capital letter, one special character, and be between 8 and 20 characters long.';
+                    event.preventDefault();
+                } else {
+                    passwordMessage.textContent = '';
+                }
+
+                if (passwordInput.value !== confirmPasswordInput.value) {
+                    confirmPasswordMessage.textContent = 'Passwords do not match.';
+                    event.preventDefault();
+                } else {
+                    confirmPasswordMessage.textContent = '';
+                }
+            });
+
+            function isPasswordValid(password) {
+                // Password should contain at least one number, one capital letter, one special character
+                // and be between 8 and 20 characters long.
+                const regex = /^(?=.*\d)(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{8,20}$/;
+                return regex.test(password);
+            }
+        });
+    </script>
+</head>
+<body>
+
+    <form action="/signup" method="post">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <div id="password-message"></div>
+
+        <label for="confirm-password">Confirm Password:</label>
+        <input type="password" id="confirm-password" name="confirm-password" required>
+        <div id="confirm-password-message"></div>
+
+        <button type="submit">Sign Up</button>
+    </form>
+
+</body>
+</html>

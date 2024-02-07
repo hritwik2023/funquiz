@@ -1,0 +1,17 @@
+
+<%- include('../common/header') %>
+<script type="text/javascript" src="getStarted.js"> </script>
+<h2 id="heading">For what purpose you are creating this question paper?</h2>
+<div id="getStarted">
+    <form action="/questionpaper" method="GET">
+        <input type="hidden" style="display: none;" name="type" value="SE"/>
+        <button type="submit">School Exams</button>
+    </form>
+    <form action="/questionpaper" method="GET">
+        <input type="hidden" style="display: none;" name="type" value="Q"/>
+        <button type="submit">Quiz</button>
+    </form>
+</div>
+
+
+    <%- include('../common/footer') %>
